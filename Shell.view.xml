@@ -1,0 +1,156 @@
+<mvc:View height="100%"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns="sap.m"
+	xmlns:s="sap.f"
+	xmlns:core="sap.ui.core"
+	xmlns:f="sap.ui.layout.form"
+	xmlns:l="sap.ui.layout"
+	
+	xmlns:tnt="sap.tnt" controllerName="com.enterprise.Tickets.controller.Shell">
+	
+<Shell>
+	<tnt:ToolPage id="toolPage">
+		<tnt:header>
+			<s:ShellBar title="Enterprise Ticketing"
+			showMenuButton="true"
+			menuButtonPressed="onMenuButtonPress">
+		    	<s:additionalContent>
+					<Button text="Log on" press="onClick" />
+			</s:additionalContent>
+		  	</s:ShellBar>
+		</tnt:header>
+		
+	<tnt:sideContent>
+			<tnt:SideNavigation expanded="true" selectedKey="{/selectedKey}" itemSelect="onItemSelect">
+				<tnt:NavigationList items="{path: '/navigation'}">
+					<tnt:NavigationListItem text="{title}" icon="{icon}" enabled="{enabled}" expanded="{expanded}" items="{items}" key="{key}">
+						<tnt:NavigationListItem text="{title}" key="{key}" enabled="{enabled}">
+					    </tnt:NavigationListItem>
+					</tnt:NavigationListItem>
+				</tnt:NavigationList>
+				
+				<tnt:fixedItem>
+					<tnt:NavigationList items="{path: '/fixedNavigation'}">
+						<tnt:NavigationListItem text="{title}" icon="{icon}">
+						</tnt:NavigationListItem>
+					</tnt:NavigationList>
+				</tnt:fixedItem>
+			</tnt:SideNavigation>
+	</tnt:sideContent>
+	
+		<tnt:mainContents>
+			<NavContainer id="pageContainer" initialPage="root1">
+				<pages>
+					
+					
+					<ScrollContainer id="root1" horizontal="false" vertical="true" height="100%">
+		<List
+		id="myList"
+		headerText="Tickets Status"
+		items="{
+			path: '/TicketData'
+		}">
+		<items>
+			<StandardListItem
+				title="{title}"
+				description="{desc}"
+				icon="{icon}"
+				iconInset="false"
+				highlight="{highlight}"
+				info="{info}"
+				infoState="{highlight}"
+				wrapping="true" />
+		</items>
+	</List>
+			    	</ScrollContainer>
+				
+			        <ScrollContainer id="root2" horizontal="false" vertical="true" height="100%">
+							
+					 <f:SimpleForm id="SimpleFormToolbar"
+						editable="true"
+						layout="ResponsiveGridLayout"
+						labelSpanXL="-1"
+						labelSpanL="4"
+						labelSpanM="4"
+						labelSpanS="4"
+						adjustLabelSpan="false"
+						emptySpanXL="0"
+						emptySpanL="4"
+						emptySpanM="0"
+						emptySpanS="0"
+						columnsXL="-1"
+						columnsL="1"
+						columnsM="1"
+						singleContainerFullSize="false"
+						ariaLabelledBy="Title1" >
+							<f:toolbar>
+								<Toolbar id="TB1">
+									<Title id="Title1" text="Create Ticket" level="H2" titleStyle="H3"/>
+										<ToolbarSpacer />
+								</Toolbar>
+							</f:toolbar>
+							
+							<f:content>
+								<Toolbar>
+									<ToolbarSpacer />
+								</Toolbar>
+							<Label text="Description" />
+								<Input  required ="true" value="{Description}" />
+							<Label text="Ticket Type" required ="true" />
+							    	<Select id="ticket" selectedKey="{type}">
+							    	<items>
+							    	<core:Item text="HR Direct" key="HR"/>
+							    	</items>	
+							    	</Select>
+							<Label text="Ticket Category" />
+								<Input required ="true" value="{Street}">
+								</Input>
+							<Label text="Priority" required ="true" />
+								<Select id="priority" selectedKey="{type}">
+								<items>
+									<core:Item text="Low" key="low"/>
+									<core:Item text="Medium" key="medium"/>
+									<core:Item text="High" key="high"/>
+									<core:Item text="Very High" key="extreme"/>
+									</items>
+								</Select>
+						<Label text="Affected User" required ="true" />
+							<Input value="{user}">
+							</Input>
+						<Label text="Issue Description"/>
+							<TextArea 
+								value="{issue}"
+								rows="8"
+								liveChange="handleLiveChange"/>
+						</f:content>
+					</f:SimpleForm>
+	
+			<Page>
+				<footer>
+					<OverflowToolbar id="otbFooter">
+					<ToolbarSpacer/>
+						<Button type="Accept" text="Save">
+							<layoutData><OverflowToolbarLayoutData priority="NeverOverflow" /></layoutData>
+						</Button>
+						<Button type="Reject" text="Cancel">
+							<layoutData><OverflowToolbarLayoutData priority="NeverOverflow" /></layoutData>
+						</Button>
+						<OverflowToolbarButton  icon="sap-icon://save"/></OverflowToolbar>
+				</footer>
+			</Page>
+	    </ScrollContainer>
+	            	
+				   <ScrollContainer id="root3" horizontal="false" vertical="true" height="100%">
+				   	
+						<Text text="This is History"/>
+					</ScrollContainer>
+						
+	
+				</pages>
+			</NavContainer>
+		</tnt:mainContents>
+	</tnt:ToolPage>
+
+</Shell>	
+
+</mvc:View>
