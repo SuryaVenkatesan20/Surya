@@ -6,8 +6,8 @@
 	xmlns:f="sap.ui.layout.form"
 	xmlns:l="sap.ui.layout"
 	
-	xmlns:tnt="sap.tnt" controllerName="com.enterprise.Tickets.controller.Shell">
-	
+	xmlns:tnt="sap.tnt" controllerName="sap.ui.demo.walkthrough.controller.Shell">
+	<App id="app">
 <Shell>
 	<tnt:ToolPage id="toolPage">
 		<tnt:header>
@@ -15,7 +15,19 @@
 			showMenuButton="true"
 			menuButtonPressed="onMenuButtonPress">
 		    	<s:additionalContent>
-					<Button text="Log on" press="onClick" />
+					<MenuButton  id="iNumber" text="logout" >
+					<menu>
+						<Menu>
+					<items>
+						<MenuItem text="Logout" icon="sap-icon://log" press="onLogout">
+						</MenuItem>
+						
+					</items>
+				</Menu>
+			</menu>
+		</MenuButton>
+					
+		
 			</s:additionalContent>
 		  	</s:ShellBar>
 		</tnt:header>
@@ -44,24 +56,40 @@
 					
 					
 					<ScrollContainer id="root1" horizontal="false" vertical="true" height="100%">
-		<List
-		id="myList"
-		headerText="Tickets Status"
-		items="{
-			path: '/TicketData'
-		}">
-		<items>
-			<StandardListItem
-				title="{title}"
-				description="{desc}"
-				icon="{icon}"
-				iconInset="false"
-				highlight="{highlight}"
-				info="{info}"
-				infoState="{highlight}"
-				wrapping="true" />
-		</items>
-	</List>
+		<Table id="tickets" items="{ path:'ticketModel>/'}">
+						<headerToolbar>
+							<OverflowToolbar>
+								<content>
+									<Title text="Tickets" level="H2"/>
+									<ToolbarSpacer/>
+								</content>
+							</OverflowToolbar>
+						</headerToolbar>
+						<columns >
+							<Column>
+								<Text text="Ticket Id"/>
+							</Column>
+							<Column>
+								<Text text="Description"/>
+							</Column>
+							<Column>
+								<Text text="Ticket Type"/>
+							</Column>
+							<Column>
+								<Text text="priority"/>
+							</Column>
+						</columns>
+						<items>
+							<ColumnListItem  >
+								<cells >
+									<Text text="{ticketModel>ticketId}"/>
+									<Text text="{ticketModel>description}"/>
+									<Text text="{ticketModel>ticketType}"/>
+									<Text text="{ticketModel>priority}"/>
+								</cells>
+							</ColumnListItem>
+						</items>
+					</Table>
 			    	</ScrollContainer>
 				
 			        <ScrollContainer id="root2" horizontal="false" vertical="true" height="100%">
@@ -94,17 +122,18 @@
 								<Toolbar>
 									<ToolbarSpacer />
 								</Toolbar>
-							<Label text="Description" />
-								<Input  required ="true" value="{Description}" />
+							<Label text="INUMBER" />
+								<Input id="inumber-flied" required ="true" placeholder="Inumber" value="" />
+							
 							<Label text="Ticket Type" required ="true" />
-							    	<Select id="ticket" selectedKey="{type}">
+							    	<Select id="ticketType" selectedKey="{type}">
 							    	<items>
 							    	<core:Item text="HR Direct" key="HR"/>
+							    	<core:Item text="IT Direct" key="IT"/>
 							    	</items>	
 							    	</Select>
-							<Label text="Ticket Category" />
-								<Input required ="true" value="{Street}">
-								</Input>
+						
+							
 							<Label text="Priority" required ="true" />
 								<Select id="priority" selectedKey="{type}">
 								<items>
@@ -114,13 +143,12 @@
 									<core:Item text="Very High" key="extreme"/>
 									</items>
 								</Select>
-						<Label text="Affected User" required ="true" />
-							<Input value="{user}">
-							</Input>
+						
 						<Label text="Issue Description"/>
 							<TextArea 
-								value="{issue}"
+								id="IssueDescription"
 								rows="8"
+								placeholder="IssueDescription"
 								liveChange="handleLiveChange"/>
 						</f:content>
 					</f:SimpleForm>
@@ -128,14 +156,16 @@
 			<Page>
 				<footer>
 					<OverflowToolbar id="otbFooter">
-					<ToolbarSpacer/>
-						<Button type="Accept" text="Save">
+			
+						<Button type="Accept" text="Save" press="onSave">
+							<layoutData>
+							
+							<OverflowToolbarLayoutData priority="NeverOverflow" /></layoutData>
+						</Button>
+						<Button type="Reject" text="Back" press="onReject">
 							<layoutData><OverflowToolbarLayoutData priority="NeverOverflow" /></layoutData>
 						</Button>
-						<Button type="Reject" text="Cancel">
-							<layoutData><OverflowToolbarLayoutData priority="NeverOverflow" /></layoutData>
-						</Button>
-						<OverflowToolbarButton  icon="sap-icon://save"/></OverflowToolbar>
+					</OverflowToolbar>
 				</footer>
 			</Page>
 	    </ScrollContainer>
@@ -152,5 +182,5 @@
 	</tnt:ToolPage>
 
 </Shell>	
-
+</App>
 </mvc:View>
